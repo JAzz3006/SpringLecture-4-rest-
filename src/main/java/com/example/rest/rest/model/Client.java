@@ -1,5 +1,7 @@
 package com.example.rest.rest.model;
 import lombok.Data;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.ArrayList;
 import java.util.List;
