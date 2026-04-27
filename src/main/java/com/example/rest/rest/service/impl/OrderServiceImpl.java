@@ -2,12 +2,10 @@ package com.example.rest.rest.service.impl;
 import com.example.rest.rest.exception.EntityNotFoundException;
 import com.example.rest.rest.exception.UpdateStateException;
 import com.example.rest.rest.model.Order;
-import com.example.rest.rest.repository.ClientRepository;
 import com.example.rest.rest.repository.OrderRepository;
 import com.example.rest.rest.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.Instant;
