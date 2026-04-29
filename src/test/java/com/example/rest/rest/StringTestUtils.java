@@ -15,7 +15,7 @@ public class StringTestUtils {
         ResourceLoader resourceLoader = new DefaultResourceLoader();
         Resource resource = resourceLoader.getResource(MessageFormat.format("classpath:{0}", resourceLoader));
         try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)){
-            return FileCopyUtils.copyToString(reader);*
+            return FileCopyUtils.copyToString(reader);
         }catch (IOException e){
             throw new RuntimeException();
         }

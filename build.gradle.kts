@@ -27,6 +27,7 @@ dependencies {
 	testCompileOnly("org.projectlombok:lombok")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testAnnotationProcessor("org.projectlombok:lombok")
+	testImplementation("net.javacrumbs.json-unit:json-unit:2.38.0")
 }
 
 tasks.withType<Test> {
