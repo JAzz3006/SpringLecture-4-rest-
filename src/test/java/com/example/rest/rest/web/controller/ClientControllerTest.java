@@ -4,9 +4,9 @@ import com.example.rest.rest.mapper.v1.ClientMapper;
 import com.example.rest.rest.model.Client;
 import com.example.rest.rest.model.Order;
 import com.example.rest.rest.service.ClientService;
+import com.example.rest.rest.web.model.ClientResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,5 +23,7 @@ public class ClientControllerTest extends AbstractTestController {
         clients.add(createClient(1L, null));
         Order order = createOrder(1L,100L, null);
         clients.add(createClient(2L, order));
+        List<ClientResponse> clientResponses = new ArrayList<>();
+        clientResponses.add(createClientResponse(1L,))
     }
 }
