@@ -11,9 +11,9 @@ import java.text.MessageFormat;
 
 public class StringTestUtils {
 
-    public static String readStringFromResource(String ResourcePath) {
+    public static String readStringFromResource(String resourcePath) {
         ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(MessageFormat.format("classpath:{0}", resourceLoader));
+        Resource resource = resourceLoader.getResource(MessageFormat.format("classpath:{0}", resourcePath));
         try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)){
             return FileCopyUtils.copyToString(reader);
         }catch (IOException e){

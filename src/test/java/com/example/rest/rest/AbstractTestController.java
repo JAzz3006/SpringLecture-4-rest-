@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public abstract class AbstractTestController {
     protected Client createClient (Long id, Order order) {
         Client client = new Client(
                 id,
-                "client" + id,
+                "Client " + id,
                 new ArrayList<>()
         );
         if (order !=null){
@@ -50,7 +49,7 @@ public abstract class AbstractTestController {
     protected ClientResponse createClientResponse(Long id, OrderResponse orderResponse){
         ClientResponse clientResponse = new ClientResponse(
                 id,
-                "client" + id,
+                "Client " + id,
                 new ArrayList<>()
         );
         if (orderResponse != null){
@@ -59,10 +58,10 @@ public abstract class AbstractTestController {
         return clientResponse;
     }
 
-    protected OrderResponse createOrderResponse(Long id, Long cost, ClientResponse clientResponse){
+    protected OrderResponse createOrderResponse(Long id, Long cost){
         return new OrderResponse(
                 id,
-                "test product " + id,
+                "Test product " + id,
                 BigDecimal.valueOf(cost)
         );
     }
