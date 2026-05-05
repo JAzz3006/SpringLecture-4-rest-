@@ -1,4 +1,4 @@
-package com.example.rest.rest.web.v1;
+package com.example.rest.rest.web.controller.v1;
 
 import com.example.rest.rest.mapper.v1.OrderMapper;
 import com.example.rest.rest.model.Client;
