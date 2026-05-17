@@ -10,13 +10,18 @@ import com.example.rest.rest.web.model.ClientListResponse;
 import com.example.rest.rest.web.model.ClientResponse;
 import com.example.rest.rest.web.model.OrderResponse;
 import com.example.rest.rest.web.model.UpsertClientRequest;
+import net.bytebuddy.utility.RandomString;
 import net.javacrumbs.jsonunit.JsonAssert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -170,7 +175,33 @@ public class ClientControllerTest extends AbstractTestController {
                 .getResponse();
         response.setCharacterEncoding("UTF-8");
         String actualResponse = response.getContentAsString();
-        String expectedResponse = StringTestUtils.readStringFromResource("response/empty_client_name_response.json");
+        String expectedResponse = StringTestUtils.readStringFromResource(
+                "response/empty_client_name_response.json"
+        );
         JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidSizeName")
+    public void whenCreateClientInvalidSizeName_thenReturnError(String name) throws Exception{
+        var response = mockMvc.perform(post("/api/v1/client")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(new UpsertClientRequest(name))))
+                .andExpect(status().isBadRequest())
+                .andReturn()
+                .getResponse();
+        response.setCharacterEncoding("UTF-8");
+        String actualResponse = response.getContentAsString();
+        String expectedResponse = StringTestUtils.readStringFromResource(
+                "response/client_name_size_exception_response.json"
+        );
+        JsonAssert.assertJsonEquals(expectedResponse, actualResponse);
+    }
+
+    private static Stream<Arguments> invalidSizeName(){
+        return Stream.of(
+                Arguments.of(RandomString.make(2)),
+                Arguments.of(RandomString.make(31))
+        );
     }
 }

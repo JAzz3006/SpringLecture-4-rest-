@@ -1,0 +1,3 @@
+{
+  "errorMessage": "Client name cannot be less than 3 symbols and more than 30 symbols"
+}

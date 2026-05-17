@@ -1,5 +1,4 @@
 package com.example.rest.rest.web.controller.v1;
-import com.example.rest.rest.exception.EntityNotFoundException;
 import com.example.rest.rest.mapper.v1.ClientMapper;
 import com.example.rest.rest.model.Client;
 import com.example.rest.rest.service.ClientService;
@@ -9,10 +8,8 @@ import com.example.rest.rest.web.model.UpsertClientRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClient;
 
 @RestController
 @RequestMapping("api/v1/client")

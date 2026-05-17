@@ -8,6 +8,7 @@ import com.example.rest.rest.service.OrderService;
 import com.example.rest.rest.web.model.OrderListResponse;
 import com.example.rest.rest.web.model.OrderResponse;
 import com.example.rest.rest.web.model.UpsertOrderRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponse> create(@RequestBody UpsertOrderRequest request){
+    public ResponseEntity<OrderResponse> create(@Valid @RequestBody UpsertOrderRequest request){
         Order newOrder = orderService.save(orderMapper.requestToOrder(request));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
