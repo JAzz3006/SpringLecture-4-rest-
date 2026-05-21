@@ -65,8 +65,8 @@ public class InMemoryOrderRepository implements OrderRepository {
         BeanUtils.copyNonNullProperties(order, currentOrder);
         currentOrder.setUpdatedAt(Instant.now());
         currentOrder.setId(orderId);
-        repository.put(orderId, order);
-        return order;
+        repository.put(orderId, currentOrder);
+        return currentOrder;
     }
 
     @Override

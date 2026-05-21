@@ -50,7 +50,7 @@ public class OrderController {
     @Operation(
             summary = "Finds order by id",
             description = "Finds order by id",
-            tags = {"order", "id"}
+            tags = {"order"}
     )
     @ApiResponses({
             @ApiResponse(
@@ -75,9 +75,29 @@ public class OrderController {
 
     @Operation(
             summary = "Creates order",
-            description = "Creates order. Product name is necessary",
+            description = "Creates a new order for an existing client. Product name is mandatory",
             tags = {"order"}
     )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    content = {
+                            @Content(schema = @Schema(implementation = OrderResponse.class), mediaType = "application/json")
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    content = {
+                            @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    content = {
+                            @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+                    }
+            )
+    })
     @PostMapping
     public ResponseEntity<OrderResponse> create(@Valid @RequestBody UpsertOrderRequest request){
         Order newOrder = orderService.save(orderMapper.requestToOrder(request));
@@ -86,14 +106,55 @@ public class OrderController {
                 .body(orderMapper.orderToResponse(newOrder));
     }
 
+    @Operation(
+            summary = "Updates order",
+            description = "Updates order fields: clientId, product and cost",
+            tags = {"Order"}
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    content = {
+                            @Content(schema = @Schema(implementation = OrderResponse.class), mediaType = "application/json")
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    content = {
+                            @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    content = {
+                            @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+                    }
+            )
+    })
     @PutMapping("/{id}")
     public ResponseEntity<OrderResponse> update(
             @PathVariable("id") Long orderId,
-            @RequestBody UpsertOrderRequest request){
+            @RequestBody @Valid UpsertOrderRequest request){
         Order updatedOrder = orderService.update(orderMapper.requestToOrder(orderId, request));
         return ResponseEntity.ok(orderMapper.orderToResponse(updatedOrder));
     }
 
+    @Operation(
+            summary = "Deletes order by id",
+            description = "Deletes order by id, if exist",
+            tags = {"order"}
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "204"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    content = {
+                            @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+                    }
+            )
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         orderService.deleteById(id);

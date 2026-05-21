@@ -48,7 +48,7 @@ public class ClientController {
     @Operation(
             summary = "Gets client by id",
             description = "Gets client by id, returns id, name and list of orders",
-            tags = {"client", "id"}
+            tags = {"client"}
     )
     @ApiResponses({
             @ApiResponse(
@@ -101,7 +101,7 @@ public class ClientController {
     @Operation(
             summary = "Updates client by id",
             description = "Updates client by id, name update only",
-            tags = {"client", "id"}
+            tags = {"client"}
     )
     @ApiResponses({
             @ApiResponse(
@@ -135,11 +135,19 @@ public class ClientController {
     @Operation(
             summary = "Deletes client by id",
             description = "Deletes client by id",
-            tags = {"client", "id"}
+            tags = {"client"}
     )
-    @ApiResponse(
-            responseCode = "204"
-    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "204"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    content = {
+                            @Content(schema = @Schema(implementation = ErrorResponse.class), mediaType = "application/json")
+                    }
+            ),
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         clientService.deleteById(id);
