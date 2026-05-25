@@ -1,50 +1,46 @@
-package com.example.rest.rest.repository.impl;
+package com.example.rest.rest.service.impl;
 import com.example.rest.rest.exception.EntityNotFoundException;
 import com.example.rest.rest.model.Client;
-import com.example.rest.rest.repository.ClientRepository;
+import com.example.rest.rest.repository.DataBaseClientRepository;
 import com.example.rest.rest.service.ClientService;
 import com.example.rest.rest.utils.BeanUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class DatabaseClientService implements ClientService {
 
-    private final ClientRepository clientRepository;
+    private final DataBaseClientRepository dataBaseClientRepository;
 
     @Override
     public List<Client> findAll() {
-        return clientRepository.findAll();
+        return dataBaseClientRepository.findAll();
     }
 
     @Override
     public Client findById(Long id) {
-        return clientRepository.findByID(id)
+        return dataBaseClientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Client with ID=%d not found", id)));
     }
 
     @Override
     public Client save(Client client) {
-        return clientRepository.save(client);
+        return dataBaseClientRepository.save(client);
     }
 
     @Override
     public Client update(Client client) {
-        Long currentId = client.getId();
-        Client currentClient = clientRepository.findByID(client.getId())
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Client with id=%d not found", currentId)));
-        BeanUtils.copyNonNullProperties(currentClient, client);
-        return clientRepository.save(currentClient);
+       Client currentClient = dataBaseClientRepository.findById(client.getId())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Client with ID = %d not found", client.getId())));
+        BeanUtils.copyNonNullProperties(client, currentClient);
+        return dataBaseClientRepository.save(currentClient);
     }
-
-
 
     @Override
     public void deleteById(Long id) {
-        clientRepository.deleteById(id);
+        dataBaseClientRepository.findById(id);
+        dataBaseClientRepository.deleteById(id);
     }
 }
