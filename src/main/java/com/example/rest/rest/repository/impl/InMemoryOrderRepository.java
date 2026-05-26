@@ -5,6 +5,7 @@ import com.example.rest.rest.repository.ClientRepository;
 import com.example.rest.rest.repository.OrderRepository;
 import com.example.rest.rest.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import com.example.rest.rest.exception.EntityNotFoundException;
 import java.text.MessageFormat;
@@ -16,7 +17,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
+@Component
 public class InMemoryOrderRepository implements OrderRepository {
     private ClientRepository clientRepository;
     private Map<Long, Order> repository = new ConcurrentHashMap<>();

@@ -1,15 +1,15 @@
 package com.example.rest.rest.mapper.v2;
-
 import com.example.rest.rest.model.Order;
 import com.example.rest.rest.web.model.OrderListResponse;
 import com.example.rest.rest.web.model.OrderResponse;
 import com.example.rest.rest.web.model.UpsertOrderRequest;
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-
 import java.util.List;
 
+@DecoratedWith(OrderMapperDelegate.class)
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface OrderMapperV2 {
 

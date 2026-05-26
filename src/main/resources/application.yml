@@ -6,7 +6,7 @@ spring:
   jpa:
     generate-ddl: true
   datasource:
-    url: jdbc:postgresql://localhost:5433/app_db
+    url: jdbc:postgresql://localhost:5433/app_db?currentSchema=app_Schema
     username: postgres
     password: postgres
     hikari:

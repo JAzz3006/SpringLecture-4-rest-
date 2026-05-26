@@ -22,7 +22,8 @@ public class DatabaseClientService implements ClientService {
     @Override
     public Client findById(Long id) {
         return dataBaseClientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Client with ID=%d not found", id)));
+                .orElseThrow(() ->
+                        new EntityNotFoundException(String.format("Client with ID=%d not found", id)));
     }
 
     @Override
@@ -33,14 +34,17 @@ public class DatabaseClientService implements ClientService {
     @Override
     public Client update(Client client) {
        Client currentClient = dataBaseClientRepository.findById(client.getId())
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Client with ID = %d not found", client.getId())));
+                .orElseThrow(() ->
+                        new EntityNotFoundException(String.format("Client with ID = %d not found", client.getId())));
         BeanUtils.copyNonNullProperties(client, currentClient);
         return dataBaseClientRepository.save(currentClient);
     }
 
     @Override
     public void deleteById(Long id) {
-        dataBaseClientRepository.findById(id);
+        dataBaseClientRepository.findById(id)
+                .orElseThrow(() ->
+                        new EntityNotFoundException(String.format("Client with ID=%d not found", id)));
         dataBaseClientRepository.deleteById(id);
     }
 }

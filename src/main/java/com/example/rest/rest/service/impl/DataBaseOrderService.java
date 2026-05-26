@@ -42,7 +42,7 @@ public class DataBaseOrderService implements OrderService {
     public Order update(Order order) {
         checkForUpdate(order.getId());
         Client currentClient =dataBaseClientRepository.findById(order.getClient().getId())
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Client with ID=%d not found", order.getClient().getId())))
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Client with ID=%d not found", order.getClient().getId())));
         Order currentOrder = dataBaseOrderRepository.findById(order.getId())
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Order with ID=%d not found", order.getId())));
         BeanUtils.copyNonNullProperties(order, currentOrder);

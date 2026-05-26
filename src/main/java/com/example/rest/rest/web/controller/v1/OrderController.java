@@ -1,8 +1,6 @@
 package com.example.rest.rest.web.controller.v1;
 import com.example.rest.rest.mapper.v1.OrderMapper;
-import com.example.rest.rest.model.Client;
 import com.example.rest.rest.model.Order;
-import com.example.rest.rest.service.ClientService;
 import com.example.rest.rest.service.OrderService;
 import com.example.rest.rest.web.model.ErrorResponse;
 import com.example.rest.rest.web.model.OrderListResponse;
@@ -26,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Order v1", description = "Order API version v1")
 public class OrderController {
 
-    private final OrderService orderService;
+    private final OrderService orderServiceImpl;
     private final OrderMapper orderMapper;
 
     @Operation(
@@ -43,7 +41,7 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<OrderListResponse> findAll(){
         return ResponseEntity.ok(
-                orderMapper.orderListToOrderLIstResponse(orderService.findAll())
+                orderMapper.orderListToOrderLIstResponse(orderServiceImpl.findAll())
         );
     }
 
@@ -69,7 +67,7 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> findById1(@PathVariable Long id){
         return ResponseEntity.ok(
-                orderMapper.orderToResponse(orderService.findById(id))
+                orderMapper.orderToResponse(orderServiceImpl.findById(id))
         );
     }
 
@@ -100,7 +98,7 @@ public class OrderController {
     })
     @PostMapping
     public ResponseEntity<OrderResponse> create(@Valid @RequestBody UpsertOrderRequest request){
-        Order newOrder = orderService.save(orderMapper.requestToOrder(request));
+        Order newOrder = orderServiceImpl.save(orderMapper.requestToOrder(request));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(orderMapper.orderToResponse(newOrder));
@@ -135,7 +133,7 @@ public class OrderController {
     public ResponseEntity<OrderResponse> update(
             @PathVariable("id") Long orderId,
             @RequestBody @Valid UpsertOrderRequest request){
-        Order updatedOrder = orderService.update(orderMapper.requestToOrder(orderId, request));
+        Order updatedOrder = orderServiceImpl.update(orderMapper.requestToOrder(orderId, request));
         return ResponseEntity.ok(orderMapper.orderToResponse(updatedOrder));
     }
 
@@ -157,7 +155,7 @@ public class OrderController {
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
-        orderService.deleteById(id);
+        orderServiceImpl.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
