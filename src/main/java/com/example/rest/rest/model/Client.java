@@ -24,6 +24,7 @@ public class Client {
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     @ToStringExclude
+    @Builder.Default
     private List<Order> orders = new ArrayList<>();
 
     public void addOrder(Order order){
@@ -31,11 +32,6 @@ public class Client {
             orders = new ArrayList<>();
         }
         orders.add(order);
-    }
-
-    public List<Order> getOrders(){
-        if (orders == null) orders = new ArrayList<>();
-        return orders;
     }
 
     public void removeOrder(Long id){

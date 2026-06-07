@@ -3,6 +3,7 @@ import com.example.rest.rest.mapper.v2.OrderMapperV2;
 import com.example.rest.rest.model.Order;
 import com.example.rest.rest.service.OrderService;
 import com.example.rest.rest.service.impl.DataBaseOrderService;
+import com.example.rest.rest.web.model.OrderFilter;
 import com.example.rest.rest.web.model.OrderListResponse;
 import com.example.rest.rest.web.model.OrderResponse;
 import com.example.rest.rest.web.model.UpsertOrderRequest;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v2/order")
@@ -19,6 +22,14 @@ public class OrderControllerV2 {
 
     private final OrderMapperV2 orderMapperV2;
     private final DataBaseOrderService databaseOrderService;
+
+    @GetMapping("/filter")
+    public ResponseEntity<OrderListResponse> filterBy(OrderFilter filter){
+        return ResponseEntity.ok(
+                orderMapperV2.orderListToOrderListResponse(
+                        databaseOrderService.filterBy(filter)
+                ));
+    }
 
     @GetMapping
     public ResponseEntity<OrderListResponse> findAll(){

@@ -4,7 +4,9 @@ import com.example.rest.rest.exception.UpdateStateException;
 import com.example.rest.rest.model.Order;
 import com.example.rest.rest.repository.OrderRepository;
 import com.example.rest.rest.service.OrderService;
+import com.example.rest.rest.web.model.OrderFilter;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Service;
 import java.text.MessageFormat;
 import java.time.Duration;
@@ -47,8 +49,12 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(id);
     }
 
-    @Override
+        @Override
     public void deleteByIdIn(List<Long> ids) {
         orderRepository.deleteByIdIn(ids);
+    }
+
+    public List<Order> filterBy(OrderFilter filter){
+        throw new NotImplementedException();
     }
 }
