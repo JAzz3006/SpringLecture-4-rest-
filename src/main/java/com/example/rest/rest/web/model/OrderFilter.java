@@ -1,4 +1,5 @@
 package com.example.rest.rest.web.model;
+import com.example.rest.rest.validation.OrderFilterValid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
@@ -6,6 +7,7 @@ import java.time.Instant;
 
 @Data
 @NoArgsConstructor
+@OrderFilterValid
 public class OrderFilter {
     private Integer pageSize;
     private Integer pageNumber;
