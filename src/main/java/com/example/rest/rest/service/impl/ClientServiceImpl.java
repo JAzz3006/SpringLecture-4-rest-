@@ -1,9 +1,11 @@
 package com.example.rest.rest.service.impl;
 import com.example.rest.rest.exception.EntityNotFoundException;
 import com.example.rest.rest.model.Client;
+import com.example.rest.rest.model.Order;
 import com.example.rest.rest.repository.ClientRepository;
 import com.example.rest.rest.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Service;
 import java.text.MessageFormat;
 import java.util.List;
@@ -40,5 +42,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void deleteById(Long id) {
         clientRepository.deleteById(id);
+    }
+
+    @Override
+    public Client saveWithOrders(Client client, List<Order> orders) {
+        throw new NotImplementedException("Method was not implemented");
     }
 }
