@@ -8,6 +8,8 @@ import com.example.rest.rest.service.ClientService;
 import com.example.rest.rest.utils.BeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -52,6 +54,7 @@ public class DatabaseClientService implements ClientService {
     }
 
     @Override
+    @Transactional
     public Client saveWithOrders(Client client, List<Order> orders) {
         Client savedClient = dataBaseClientRepository.save(client);
         for (Order order : orders){
